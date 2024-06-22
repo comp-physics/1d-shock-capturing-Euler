@@ -34,7 +34,7 @@ viscous.F90:          doublePrecision.mod prms.mod
 clean:
 	@rm -fv  *.mod *.o *.x *__genmod.f90 *__genmod.mod
 
-FC=gfortran-13
+# FC=gfortran-13
 LD=${FC} 
 RANLIB=touch
 AR=ar r
