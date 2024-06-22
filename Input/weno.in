@@ -1,0 +1,10 @@
+1000            !Nx
+1               !L
+0.2             !Tend
+0.45            !CFL
+0.95            !beta
+3               !amp
+50              !outputfile
+RK3             !FT
+GLF             !Forward flux function
+True            !Viscosity flag
