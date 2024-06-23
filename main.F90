@@ -3,22 +3,14 @@ program main
     use doubleprecision
     use prms
     use conv
+    use weno
+
     implicit none
 
     real(kind = dp), dimension(:), allocatable :: x 
     real(kind = dp), dimension(:,:), allocatable :: up, uc, frp, frm, fp, fm, f, ff, pc, matvec
     real(kind = dp), dimension(:,:,:), allocatable :: urk, prk, ucsol, a
     integer :: i
-
-#if WENOORDER == 3
-#define RECONSTRUCT_FUNCTION reconstruct3
-#elif WENOORDER == 5
-#define RECONSTRUCT_FUNCTION reconstruct5
-#else
-  #error "WENOORDER not #defined or unknown"
-#endif
-
-    print '(" WENO reconstruction order = ", I2)', WENOORDER
 
     call getprms
 
@@ -82,19 +74,24 @@ program main
 end program main
 
 
-subroutine recon(fp,fm,f)
-    use prms
-    use doubleprecision
-    IMPLICIT NONE
-    real(KIND = dp), INTENT(IN) :: fp(3,0:n), fm(3,0:n)
-    real(KIND = dp) :: frp(3,0:n), frm(3,0:n)
-    real(KIND = dp), INTENT(OUT) :: f(3,0:n)
-    integer :: i
+! subroutine recon(fp,fm,f)
 
-    do i = 1,3
-        call RECONSTRUCT_FUNCTION (frp(i,:), fp(i,:), n,  1)
-        call RECONSTRUCT_FUNCTION (frm(i,:), fm(i,:), n, -1)
-        f(i,:) = frp(i,:) + frm(i,:)
-    end do
-end subroutine recon
+!     use prms
+!     use doubleprecision
+!     use weno
+
+!     implicit none
+
+!     real(kind = dp), intent(in) :: fp(3,0:n), fm(3,0:n)
+!     real(kind = dp) :: frp(3,0:n), frm(3,0:n)
+!     real(kind = dp), intent(out) :: f(3,0:n)
+!     integer :: i
+
+!     do i = 1,3
+!         call reconstruct5(frp(i,:), fp(i,:), n,  1)
+!         call reconstruct5(frm(i,:), fm(i,:), n, -1)
+!         f(i,:) = frp(i,:) + frm(i,:)
+!     end do
+
+! end subroutine recon
 

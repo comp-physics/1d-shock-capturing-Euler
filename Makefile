@@ -1,33 +1,34 @@
 # $HeadURL$
 # $Id$
 FFLAGS= -cpp -g -O3 -I.
-programs=weno3.x weno5.x
-common=doublePrecision.o prms.o conv.o assorted.o fluxes.o numflux.o rhside.o ic.o viscous.o
+programs=euler
+common=doublePrecision.o prms.o conv.o assorted.o fluxes.o numflux.o rhside.o ic.o viscous.o weno.o
 
 all: $(programs)
 
-main3.o: FFLAGS += -DWENOORDER=3
-main3.o: main.f90
+# main.o: FFLAGS += -DWENOORDER=3
+main.o: main.f90
 	$(FC) $(FFLAGS) -c -o $@ $<
 
-weno3.x: main3.o reconstruct3.o $(common)
+# euler: main.o reconstruct3.o $(common)
+euler: main.o $(common)
 	$(LD) -o $@ $^
 
-main5.o: FFLAGS += -DWENOORDER=5
-main5.o: main.f90
-	$(FC) $(FFLAGS) -c -o $@ $<
+# main5.o: FFLAGS += -DWENOORDER=5
+# main5.o: main.f90
+# 	$(FC) $(FFLAGS) -c -o $@ $<
 
-weno5.x: main5.o reconstruct5.o $(common)
-	$(LD) -o $@ $^
+# weno5.x: main5.o reconstruct5.o $(common)
+# 	$(LD) -o $@ $^
 
 # Module dependencies
+double_precision.f90:
 assorted.f90:         doublePrecision.mod prms.mod
 numflux.f90:          doublePrecision.mod prms.mod
 fluxes.f90:           doublePrecision.mod prms.mod
-main.f90:             doublePrecision.mod prms.mod conv.mod
+main.f90:             doublePrecision.mod prms.mod conv.mod weno.mod
 ic.f90:               doublePrecision.mod prms.mod conv.mod
-reconstruct3.f90:     doublePrecision.mod prms.mod
-reconstruct5.f90:     doublePrecision.mod prms.mod
+weno.f90:     		  doublePrecision.mod prms.mod
 rhside.f90:           doublePrecision.mod prms.mod
 viscous.f90:          doublePrecision.mod prms.mod
 

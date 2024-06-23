@@ -28,7 +28,7 @@ contains
 subroutine getprms
     integer :: i
 
-    open(1,file='Input/weno.in')
+    open(1,file='input/weno.in')
     read(1,*) n;                print*, 'Nx=',n
     read(1,*) L;                print*, 'L=', L
     read(1,*) tend;             print*, 'Tend=', Tend
