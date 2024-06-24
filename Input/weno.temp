@@ -6,8 +6,5 @@ XXBETA          !beta
 XXAMP           !amp
 100             !outputfile
 XXFT            !FT
-XXBT            !BT
 XXFFLUX         !Forward flux function
-XXAFLUX         !Adjoint flux function
-XXADJ           !Adjoint flag
 XXVISC          !Viscosity flag
