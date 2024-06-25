@@ -1,24 +1,11 @@
 module weno
 
-!> Compute a 5th-order WENO reconstruction.
-!! Given function values \f$u(x_i)\f$ for \f$i\in\left\{0,\ldots,n\right\}\f$
-!! compute the reconstruction at \f$u_{r}\left(x_{i+1/2}\right)\f$ following
-!! Shu's 2009 SIAM Review paper.
-!!
-!! @param ur    Reconstruction \f$u_{r}\left(x_{i+1/2}\right)\f$
-!! @param u     Function values \f$u(x_i)\f$
-!! @param n     Grid size
-!! @param bias  If strictly positive, bias stencil to the left.
-!!              Otherwise, bias stencil to the right.
-
 contains
 
 subroutine recon(fp,fm,f)
 
     use prms
     use doubleprecision
-    ! use reconstruct3
-    ! use reconstruct5
 
     implicit none
 
@@ -27,11 +14,18 @@ subroutine recon(fp,fm,f)
     real(kind = dp), intent(out) :: f(3,0:n)
     integer :: i
 
+
     do i = 1,3
-        call reconstruct5(frp(i,:), fp(i,:), n,  1)
-        call reconstruct5(frm(i,:), fm(i,:), n, -1)
-        f(i,:) = frp(i,:) + frm(i,:)
+        if (enable_weno == 'True') then
+            call reconstruct5(frp(i,:), fp(i,:), n,  1)
+            call reconstruct5(frm(i,:), fm(i,:), n, -1)
+            f(i,:) = frp(i,:) + frm(i,:)
+        ! else
+            ! f(i,:) = 0.5*(fp(i+1,:) + fm(i,:))
+            ! f(i,:) = fm(i,:)
+        end if
     end do
+
 
 end subroutine recon
 

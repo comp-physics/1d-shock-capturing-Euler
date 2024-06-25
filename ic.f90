@@ -27,27 +27,26 @@ subroutine getic(x,uc,up,ucsol)
         ! end if
 
         !! Sod Shock tube
-        ! if (x(i) > 0 ) then
-        !     up(1,i) = 0.125
-        !     up(2,i) = 0.000
-        !     up(3,i) = 0.100
-        ! else
-        !     up(1,i) = 1.000
-        !     up(2,i) = 0.000
-        !     up(3,i) = 1.000
-        ! end if
+        if (x(i) > 0 ) then
+            up(1,i) = 0.125
+            up(2,i) = 0.000
+            up(3,i) = 0.100
+        else
+            up(1,i) = 1.000
+            up(2,i) = 0.000
+            up(3,i) = 1.000
+        end if
 
         !! Shu-Osher
-        ! print*, i,x(i)
-        if (x(i) < -4.0 ) then
-            up(1,i) = 27./7.
-            up(2,i) = 4.*sqrt(35.)/7.0
-            up(3,i) = 31./3.
-        else
-            up(1,i) = 1. + 0.2*sin(5*x(i))
-            up(2,i) = 0.0
-            up(3,i) = 1.0
-        end if
+        ! if (x(i) < -4.0 ) then
+        !     up(1,i) = 27./7.
+        !     up(2,i) = 4.*sqrt(35.)/7.0
+        !     up(3,i) = 31./3.
+        ! else
+        !     up(1,i) = 1. + 0.2*sin(5*x(i))
+        !     up(2,i) = 0.0
+        !     up(3,i) = 1.0
+        ! end if
     end do
 
     ! Smoothing

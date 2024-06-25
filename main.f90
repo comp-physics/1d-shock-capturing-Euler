@@ -8,16 +8,16 @@ program main
     implicit none
 
     real(kind = dp), dimension(:), allocatable :: x 
-    real(kind = dp), dimension(:,:), allocatable :: up, uc, frp, frm, fp, fm, f, ff, pc, matvec
-    real(kind = dp), dimension(:,:,:), allocatable :: urk, prk, ucsol, a
+    real(kind = dp), dimension(:,:), allocatable :: up, uc, frp, frm, fp, fm, f, ff
+    real(kind = dp), dimension(:,:,:), allocatable :: urk, ucsol
     integer :: i
 
     call getprms
 
     allocate( x(0:n) )
     allocate( up(3,0:n), uc(3,0:n), frp(3,0:n), frm(3,0:n), f(3,0:n), fp(3,0:n), &
-            fm(3,0:n), ff(3,0:n), pc(3,0:n), matvec(3,0:n) )
-    allocate( urk(3,0:n,1:2), prk(3,0:n,1:2), A(3,3,0:n), ucsol(0:nsteps,3,0:n) )
+            fm(3,0:n), ff(3,0:n)  )
+    allocate( urk(3,0:n,1:2), ucsol(0:nsteps,3,0:n) )
 
     call getic(x,uc,up,ucsol)
 
@@ -72,26 +72,3 @@ program main
     !close(1)
 
 end program main
-
-
-! subroutine recon(fp,fm,f)
-
-!     use prms
-!     use doubleprecision
-!     use weno
-
-!     implicit none
-
-!     real(kind = dp), intent(in) :: fp(3,0:n), fm(3,0:n)
-!     real(kind = dp) :: frp(3,0:n), frm(3,0:n)
-!     real(kind = dp), intent(out) :: f(3,0:n)
-!     integer :: i
-
-!     do i = 1,3
-!         call reconstruct5(frp(i,:), fp(i,:), n,  1)
-!         call reconstruct5(frm(i,:), fm(i,:), n, -1)
-!         f(i,:) = frp(i,:) + frm(i,:)
-!     end do
-
-! end subroutine recon
-

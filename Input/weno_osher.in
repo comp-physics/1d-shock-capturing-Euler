@@ -1,6 +1,6 @@
 1000            !Nx
-1              !L
-0.2             !Tend
+10              !L
+1.8             !Tend
 0.45            !CFL
 0.95            !beta
 3               !amp
@@ -8,4 +8,4 @@
 RK3             !FT
 GLF             !Forward flux function
 True            !Viscosity flag
-False           !WENO flag
+True            !WENO flag

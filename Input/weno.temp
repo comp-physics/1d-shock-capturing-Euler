@@ -8,3 +8,4 @@ XXAMP           !amp
 XXFT            !FT
 XXFFLUX         !Forward flux function
 XXVISC          !Viscosity flag
+XXWENO          !WENO flag

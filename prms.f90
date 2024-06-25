@@ -17,6 +17,7 @@ module prms
     character(len = 20) :: ft       !time marching scheme
     character(len = 20) :: fflux    !flux functions
     character(len = 20) :: enable_viscosity !flag for added viscosity
+    character(len = 20) :: enable_weno !flag for weno
     
     integer :: nt, nsteps, nfor
     real(kind = dp) :: h, hi, t, dt
@@ -29,16 +30,17 @@ subroutine getprms
     integer :: i
 
     open(1,file='input/weno.in')
-    read(1,*) n;                print*, 'Nx=',n
-    read(1,*) L;                print*, 'L=', L
-    read(1,*) tend;             print*, 'Tend=', Tend
-    read(1,*) cfl;              print*, 'CFL=', CFL
-    read(1,*) beta;             print*, 'beta=', beta
-    read(1,*) amp;              print*, 'amp=', amp
-    read(1,*) outfile;          print*, 'Output frequency=', outfile
-    read(1,*) FT;               print*, 'FT', FT
-    read(1,*) FFlux;            print*, 'Flux', FFlux
-    read(1,*) enable_viscosity; print*, 'Viscosity enabled:', enable_viscosity
+    read(1,*) n;                print*, 'Nx: ',n
+    read(1,*) L;                print*, 'L: ', L
+    read(1,*) tend;             print*, 'Tend: ', Tend
+    read(1,*) cfl;              print*, 'CFL: ', CFL
+    read(1,*) beta;             print*, 'beta: ', beta
+    read(1,*) amp;              print*, 'amp: ', amp
+    read(1,*) outfile;          print*, 'Output frequency: ', outfile
+    read(1,*) FT;               print*, 'FT: ', FT
+    read(1,*) FFlux;            print*, 'Flux: ', FFlux
+    read(1,*) enable_viscosity; print*, 'Viscosity enabled: ', enable_viscosity
+    read(1,*) enable_weno;      print*, 'WENO enabled: ', enable_weno
     close(1)
 
     maxwavespeed = 1+sqrt(1/amp) !for entropy wave of speed 1
